@@ -365,7 +365,32 @@ def pregunta_09():
     }
 
     """
-    return
+    registros_por_clave = {}
+
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        # Dividir la línea en columnas
+        columns = line.strip().split('\t')
+        
+        # Obtener los valores de la quinta columna y dividir por comas
+        valores = columns[4].split(',')
+        
+        # Iterar sobre cada par clave-valor
+        for par in valores:
+            clave, _ = par.split(':')
+            
+            # Actualizar el contador para esa clave
+            if clave in registros_por_clave:
+                registros_por_clave[clave] += 1
+            else:
+                registros_por_clave[clave] = 1
+
+    return registros_por_clave
+
+resultado = pregunta_09()
+print(resultado)
 
 
 def pregunta_10():
