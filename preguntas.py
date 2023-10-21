@@ -493,4 +493,27 @@ def pregunta_12():
     }
 
     """
-    return
+    suma_por_letra = {}
+
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        columns = line.strip().split('\t')
+        
+        letra = columns[0]
+        column_5 = columns[4].split(',')
+
+        for par in column_5:
+            _, valor = par.split(':')
+            valor = int(valor)
+            if letra in suma_por_letra:
+                suma_por_letra[letra] += valor
+            else:
+                suma_por_letra[letra] = valor
+    
+
+    return suma_por_letra
+
+resultado = pregunta_12()
+print(resultado)
