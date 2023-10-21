@@ -136,7 +136,28 @@ def pregunta_04():
     ]
 
     """
-    return
+    registros_por_mes = {}
+
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+    
+    for line in lines:
+        columns = line.strip().split('\t')
+
+        fecha = columns[2]
+        mes = fecha.split('-')[1]
+
+        if mes in registros_por_mes:
+            registros_por_mes[mes] += 1
+        else:
+            registros_por_mes[mes] = 1
+
+    lista_resultado_04 = sorted(registros_por_mes.items())
+
+    return lista_resultado_04
+
+resultado = pregunta_04()
+print(resultado)
 
 
 def pregunta_05():
