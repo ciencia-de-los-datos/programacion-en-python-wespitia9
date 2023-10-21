@@ -90,7 +90,28 @@ def pregunta_03():
     ]
 
     """
-    return
+    suma_por_letra = {}
+
+    with open ('data.csv', 'r') as file:
+        lines = file.readlines()
+    
+    for line in lines:
+        columns = line.strip().split('\t')
+
+        letra = columns[0]
+        valor_segunda_columna = int(columns[1])
+
+        if letra in suma_por_letra:
+            suma_por_letra[letra] += valor_segunda_columna
+        else:
+            suma_por_letra[letra] = valor_segunda_columna
+    
+    lista_resultado = sorted(suma_por_letra.items())
+
+    return lista_resultado
+
+resultado = pregunta_03()
+print(resultado)
 
 
 def pregunta_04():
