@@ -33,9 +33,8 @@ def pregunta_01():
 
 
 def pregunta_02():
-    """
-    Retorne la cantidad de registros por cada letra de la primera columna como la lista
-    de tuplas (letra, cantidad), ordendas alfabéticamente.
+    """Retorne la cantidad de registros por cada letra de la primera columna como la lista
+       de tuplas (letra, cantidad), ordendas alfabéticamente.
 
     Rta/
     [
@@ -47,7 +46,30 @@ def pregunta_02():
     ]
 
     """
-    return
+    # Diccionario para contar la cantidad de registros por letra
+    cantidad_por_letra = {}
+
+    # Abrir CSV y leer las líneas
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        # Dividir la línea en columnas
+        columns = line.strip().split('\t')
+        
+        # Obtener la letra de la primera columna
+        letra = columns[0]
+
+        # Actualizar el contador para esa letra
+        if letra in cantidad_por_letra:
+            cantidad_por_letra[letra] += 1
+        else:
+            cantidad_por_letra[letra] = 1
+
+    # Convertir diccionario en una lista de tuplas y ordenar alfabéticamente
+    lista_resultado = sorted(cantidad_por_letra.items())
+
+    return lista_resultado
 
 
 def pregunta_03():
