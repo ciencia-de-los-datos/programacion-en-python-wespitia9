@@ -175,8 +175,30 @@ def pregunta_05():
     ]
 
     """
-    return
+    valores_por_letra = {}
 
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        columns = line.strip().split('\t')
+
+        letra = columns[0]
+        valor_segunda_columna = int(columns[1])
+
+        if letra in valores_por_letra:
+            maximo = max(valores_por_letra[letra][0], valor_segunda_columna)
+            minimo = min(valores_por_letra[letra][1], valor_segunda_columna)
+            valores_por_letra[letra] = (maximo, minimo)
+        else:
+            valores_por_letra[letra] = (valor_segunda_columna, valor_segunda_columna)
+
+    lista_resultado_05 = sorted([(letra, maximo, minimo) for letra, (maximo, minimo) in valores_por_letra.items()])
+
+    return lista_resultado_05
+
+resultado = pregunta_05()
+print(resultado)
 
 def pregunta_06():
     """
