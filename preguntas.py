@@ -272,7 +272,28 @@ def pregunta_07():
     ]
 
     """
-    return
+    letras_por_valor = {}
+
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        columns = line.strip().split('\t')
+
+        valor_segunda_columna = int(columns[1])
+        letra = columns[0]
+
+        if valor_segunda_columna in letras_por_valor:
+            letras_por_valor[valor_segunda_columna].append(letra)
+        else:
+            letras_por_valor[valor_segunda_columna] = [letra]    
+
+    lista_resultado_07 = sorted([(valor, letras) for valor, letras in letras_por_valor.items()])
+    
+    return lista_resultado_07
+
+resultado = pregunta_07()
+print(resultado)
 
 
 def pregunta_08():
