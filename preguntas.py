@@ -318,7 +318,31 @@ def pregunta_08():
     ]
 
     """
-    return
+    letras_por_valor = {}
+
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        columns = line.strip().split('\t')
+
+        valor_segunda_columna = int(columns[1])
+        letra = columns[0]
+
+        if valor_segunda_columna in letras_por_valor:
+            letras_por_valor[valor_segunda_columna].append(letra)
+        else:
+            letras_por_valor[valor_segunda_columna] = [letra]
+
+    for valor, letras in letras_por_valor.items():
+        letras_por_valor[valor] = sorted(list(set(letras)))
+
+    lista_resultado = sorted([(valor, letras) for valor, letras in letras_por_valor.items()])
+
+    return lista_resultado
+
+resultado = pregunta_08()
+print(resultado)
 
 
 def pregunta_09():
