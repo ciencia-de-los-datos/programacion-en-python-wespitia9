@@ -222,7 +222,33 @@ def pregunta_06():
     ]
 
     """
-    return
+    valores_por_clave = {}
+
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        columns = line.strip().split('\t')
+
+        valores = columns[4].split(',')
+
+        for par in valores:
+            clave, valor = par.split(':')
+            valor = int(valor)
+
+            if clave in valores_por_clave:
+                minimo = min(valores_por_clave[clave][0], valor)
+                maximo = max(valores_por_clave[clave][1], valor)
+                valores_por_clave[clave] = (minimo, maximo)
+            else:
+                valores_por_clave[clave] = (valor, valor)
+
+    lista_resultado = sorted([(clave, minimo, maximo) for clave, (minimo, maximo) in valores_por_clave.items()])
+
+    return lista_resultado
+
+resultado = pregunta_06()
+print(resultado)
 
 
 def pregunta_07():
