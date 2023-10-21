@@ -12,22 +12,29 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 """
 
-
+import csv
 def pregunta_01():
-    """
-    Retorne la suma de la segunda columna.
+    """Retorne la suma de la segunda columna. Rta/214"""
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
 
-    Rta/
-    214
+        suma_segunda_columna = 0
 
-    """
-    return
+        for line in lines:
+            # Dividir la línea en columnas
+            columns = line.strip().split('\t')
+        
+            # Obtener el valor de la segunda columna y convertirlo a entero
+            valor_segunda_columna = int(columns[1])
+
+            suma_segunda_columna += valor_segunda_columna
+
+    return suma_segunda_columna
 
 
 def pregunta_02():
-    """
-    Retorne la cantidad de registros por cada letra de la primera columna como la lista
-    de tuplas (letra, cantidad), ordendas alfabéticamente.
+    """Retorne la cantidad de registros por cada letra de la primera columna como la lista
+       de tuplas (letra, cantidad), ordendas alfabéticamente.
 
     Rta/
     [
@@ -39,7 +46,33 @@ def pregunta_02():
     ]
 
     """
-    return
+    # Diccionario para contar la cantidad de registros por letra
+    cantidad_por_letra = {}
+
+    # Abrir CSV y leer las líneas
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        # Dividir la línea en columnas
+        columns = line.strip().split('\t')
+        
+        # Obtener la letra de la primera columna
+        letra = columns[0]
+
+        # Actualizar el contador para esa letra
+        if letra in cantidad_por_letra:
+            cantidad_por_letra[letra] += 1
+        else:
+            cantidad_por_letra[letra] = 1
+
+    # Convertir diccionario en lista de tuplas y ordenar alfabéticamente
+    lista_resultado = sorted(cantidad_por_letra.items())
+
+    return lista_resultado
+
+#resultado = pregunta_02()
+#print(resultado)
 
 
 def pregunta_03():
@@ -57,7 +90,28 @@ def pregunta_03():
     ]
 
     """
-    return
+    suma_por_letra = {}
+
+    with open ('data.csv', 'r') as file:
+        lines = file.readlines()
+    
+    for line in lines:
+        columns = line.strip().split('\t')
+
+        letra = columns[0]
+        valor_segunda_columna = int(columns[1])
+
+        if letra in suma_por_letra:
+            suma_por_letra[letra] += valor_segunda_columna
+        else:
+            suma_por_letra[letra] = valor_segunda_columna
+    
+    lista_resultado = sorted(suma_por_letra.items())
+
+    return lista_resultado
+
+resultado = pregunta_03()
+print(resultado)
 
 
 def pregunta_04():
@@ -82,7 +136,28 @@ def pregunta_04():
     ]
 
     """
-    return
+    registros_por_mes = {}
+
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+    
+    for line in lines:
+        columns = line.strip().split('\t')
+
+        fecha = columns[2]
+        mes = fecha.split('-')[1]
+
+        if mes in registros_por_mes:
+            registros_por_mes[mes] += 1
+        else:
+            registros_por_mes[mes] = 1
+
+    lista_resultado_04 = sorted(registros_por_mes.items())
+
+    return lista_resultado_04
+
+resultado = pregunta_04()
+print(resultado)
 
 
 def pregunta_05():
@@ -100,8 +175,30 @@ def pregunta_05():
     ]
 
     """
-    return
+    valores_por_letra = {}
 
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        columns = line.strip().split('\t')
+
+        letra = columns[0]
+        valor_segunda_columna = int(columns[1])
+
+        if letra in valores_por_letra:
+            maximo = max(valores_por_letra[letra][0], valor_segunda_columna)
+            minimo = min(valores_por_letra[letra][1], valor_segunda_columna)
+            valores_por_letra[letra] = (maximo, minimo)
+        else:
+            valores_por_letra[letra] = (valor_segunda_columna, valor_segunda_columna)
+
+    lista_resultado_05 = sorted([(letra, maximo, minimo) for letra, (maximo, minimo) in valores_por_letra.items()])
+
+    return lista_resultado_05
+
+resultado = pregunta_05()
+print(resultado)
 
 def pregunta_06():
     """
@@ -125,7 +222,33 @@ def pregunta_06():
     ]
 
     """
-    return
+    valores_por_clave = {}
+
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        columns = line.strip().split('\t')
+
+        valores = columns[4].split(',')
+
+        for par in valores:
+            clave, valor = par.split(':')
+            valor = int(valor)
+
+            if clave in valores_por_clave:
+                minimo = min(valores_por_clave[clave][0], valor)
+                maximo = max(valores_por_clave[clave][1], valor)
+                valores_por_clave[clave] = (minimo, maximo)
+            else:
+                valores_por_clave[clave] = (valor, valor)
+
+    lista_resultado = sorted([(clave, minimo, maximo) for clave, (minimo, maximo) in valores_por_clave.items()])
+
+    return lista_resultado
+
+resultado = pregunta_06()
+print(resultado)
 
 
 def pregunta_07():
@@ -149,7 +272,28 @@ def pregunta_07():
     ]
 
     """
-    return
+    letras_por_valor = {}
+
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        columns = line.strip().split('\t')
+
+        valor_segunda_columna = int(columns[1])
+        letra = columns[0]
+
+        if valor_segunda_columna in letras_por_valor:
+            letras_por_valor[valor_segunda_columna].append(letra)
+        else:
+            letras_por_valor[valor_segunda_columna] = [letra]    
+
+    lista_resultado_07 = sorted([(valor, letras) for valor, letras in letras_por_valor.items()])
+    
+    return lista_resultado_07
+
+resultado = pregunta_07()
+print(resultado)
 
 
 def pregunta_08():
@@ -174,7 +318,31 @@ def pregunta_08():
     ]
 
     """
-    return
+    letras_por_valor = {}
+
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        columns = line.strip().split('\t')
+
+        valor_segunda_columna = int(columns[1])
+        letra = columns[0]
+
+        if valor_segunda_columna in letras_por_valor:
+            letras_por_valor[valor_segunda_columna].append(letra)
+        else:
+            letras_por_valor[valor_segunda_columna] = [letra]
+
+    for valor, letras in letras_por_valor.items():
+        letras_por_valor[valor] = sorted(list(set(letras)))
+
+    lista_resultado = sorted([(valor, letras) for valor, letras in letras_por_valor.items()])
+
+    return lista_resultado
+
+resultado = pregunta_08()
+print(resultado)
 
 
 def pregunta_09():
@@ -197,7 +365,32 @@ def pregunta_09():
     }
 
     """
-    return
+    registros_por_clave = {}
+
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        # Dividir la línea en columnas
+        columns = line.strip().split('\t')
+        
+        # Obtener los valores de la quinta columna y dividir por comas
+        valores = columns[4].split(',')
+        
+        # Iterar sobre cada par clave-valor
+        for par in valores:
+            clave, _ = par.split(':')
+            
+            # Actualizar el contador para esa clave
+            if clave in registros_por_clave:
+                registros_por_clave[clave] += 1
+            else:
+                registros_por_clave[clave] = 1
+
+    return registros_por_clave
+
+resultado = pregunta_09()
+print(resultado)
 
 
 def pregunta_10():
@@ -218,8 +411,27 @@ def pregunta_10():
 
 
     """
-    return
+    lista_tuplas = []
 
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        # Dividir la línea en columnas
+        columns = line.strip().split('\t')
+        
+        # Obtener la letra de la primera columna y las columnas 4 y 5
+        letra = columns[0]
+        column_4 = len(columns[3].split(','))
+        column_5 = len(columns[4].split(','))
+
+        # Agregar la tupla a la lista
+        lista_tuplas.append((letra, column_4, column_5))
+
+    return lista_tuplas
+
+resultado = pregunta_10()
+print(resultado)
 
 def pregunta_11():
     """
@@ -239,8 +451,32 @@ def pregunta_11():
 
 
     """
-    return
+    suma_por_letra = {}
 
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        # Dividir la línea en columnas
+        columns = line.strip().split('\t')
+        
+        # Obtener la letra de la cuarta columna y el valor de la segunda columna
+        letras = columns[3].split(',')
+        valor_segunda_columna = int(columns[1])
+
+        # Iterar sobre cada letra y actualizar la suma
+        for letra in letras:
+            if letra in suma_por_letra:
+                suma_por_letra[letra] += valor_segunda_columna
+            else:
+                suma_por_letra[letra] = valor_segunda_columna
+
+    suma_por_letra_ordenada = {letra: suma_por_letra[letra] for letra in sorted(suma_por_letra)}    
+
+    return suma_por_letra_ordenada
+
+resultado = pregunta_11()
+print(resultado)
 
 def pregunta_12():
     """
@@ -257,4 +493,27 @@ def pregunta_12():
     }
 
     """
-    return
+    suma_por_letra = {}
+
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        columns = line.strip().split('\t')
+        
+        letra = columns[0]
+        column_5 = columns[4].split(',')
+
+        for par in column_5:
+            _, valor = par.split(':')
+            valor = int(valor)
+            if letra in suma_por_letra:
+                suma_por_letra[letra] += valor
+            else:
+                suma_por_letra[letra] = valor
+    
+
+    return suma_por_letra
+
+resultado = pregunta_12()
+print(resultado)
