@@ -451,8 +451,32 @@ def pregunta_11():
 
 
     """
-    return
+    suma_por_letra = {}
 
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        # Dividir la línea en columnas
+        columns = line.strip().split('\t')
+        
+        # Obtener la letra de la cuarta columna y el valor de la segunda columna
+        letras = columns[3].split(',')
+        valor_segunda_columna = int(columns[1])
+
+        # Iterar sobre cada letra y actualizar la suma
+        for letra in letras:
+            if letra in suma_por_letra:
+                suma_por_letra[letra] += valor_segunda_columna
+            else:
+                suma_por_letra[letra] = valor_segunda_columna
+
+    suma_por_letra_ordenada = {letra: suma_por_letra[letra] for letra in sorted(suma_por_letra)}    
+
+    return suma_por_letra_ordenada
+
+resultado = pregunta_11()
+print(resultado)
 
 def pregunta_12():
     """
