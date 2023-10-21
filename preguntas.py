@@ -71,6 +71,9 @@ def pregunta_02():
 
     return lista_resultado
 
+#resultado = pregunta_02()
+#print(resultado)
+
 
 def pregunta_03():
     """
