@@ -411,8 +411,27 @@ def pregunta_10():
 
 
     """
-    return
+    lista_tuplas = []
 
+    with open('data.csv', 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        # Dividir la línea en columnas
+        columns = line.strip().split('\t')
+        
+        # Obtener la letra de la primera columna y las columnas 4 y 5
+        letra = columns[0]
+        column_4 = len(columns[3].split(','))
+        column_5 = len(columns[4].split(','))
+
+        # Agregar la tupla a la lista
+        lista_tuplas.append((letra, column_4, column_5))
+
+    return lista_tuplas
+
+resultado = pregunta_10()
+print(resultado)
 
 def pregunta_11():
     """
