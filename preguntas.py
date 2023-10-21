@@ -66,7 +66,7 @@ def pregunta_02():
         else:
             cantidad_por_letra[letra] = 1
 
-    # Convertir diccionario en una lista de tuplas y ordenar alfabéticamente
+    # Convertir diccionario en lista de tuplas y ordenar alfabéticamente
     lista_resultado = sorted(cantidad_por_letra.items())
 
     return lista_resultado
